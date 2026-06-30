@@ -2,6 +2,14 @@
 
 # Adbrew Test!
 
+## Architecture
+
+```mermaid
+graph LR
+    A[React App<br/>localhost:3000] -->|POST/GET| B[Django API<br/>localhost:8000]
+    B -->|Read/Write| C[MongoDB<br/>localhost:27017]
+```
+
 Hello! This test is designed to specifically test your Python, React and web development skills. The task is unconventional and has a slightly contrived setup on purpose and requires you to learn basic concepts of Docker on the fly. 
 
 
