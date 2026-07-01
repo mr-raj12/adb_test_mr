@@ -13,9 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path, include
+from django.urls import path
 from .views import TodoListView
 
 urlpatterns = [
-    path('todos/', TodoListView.as_view(), name='signup'),
+    # Both spellings point to the same view. The frontend posts to `/todos`
+    # without a slash; if we only had `todos/`, Django would 301 the POST and
+    # the body would be lost on the redirect.
+    path('todos', TodoListView.as_view(), name='todos'),
+    path('todos/', TodoListView.as_view(), name='todos-slash'),
 ]
