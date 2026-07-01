@@ -1,0 +1,21 @@
+# Stuff the containers write into the source tree (owned by root, not ours).
+
+# Mongo's data dir, mounted in from the host via docker-compose
+src/db/
+src/tmp/
+
+# Python bytecode cache
+__pycache__/
+*.py[cod]
+
+# The SQLite file Django creates on startup. We don't use it (todos go to
+# Mongo), but Django makes it anyway. Named "mydatabase" in settings.py.
+src/rest/mydatabase
+
+# Frontend caches / build output (the app also has its own src/app/.gitignore)
+src/app/.eslintcache
+src/app/node_modules/
+src/app/build/
+
+# OS / editor noise
+.DS_Store

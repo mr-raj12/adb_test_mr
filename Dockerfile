@@ -1,5 +1,9 @@
 # set base image (host OS)
-FROM python:3.8
+# Pinned to Debian 11 "bullseye". The plain `python:3.8` tag now points at
+# Debian 12 "bookworm", which dropped libssl1.1. MongoDB 4.4 needs libssl1.1,
+# so on bookworm `apt-get install mongodb-org` fails with broken packages.
+# Bullseye still has it, so the original setup installs fine.
+FROM python:3.8-bullseye
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
@@ -20,8 +24,11 @@ RUN apt-get install -y mongodb-org
 # Install Yarn
 RUN apt-get install -y yarn
 
-# Install PIP
-RUN easy_install pip
+# Ensure pip is available/up to date.
+# The original `easy_install pip` no longer works: `easy_install` was removed
+# from modern setuptools (>=58.3), so it exits 127. pip already ships in the
+# python base image, so we just upgrade it.
+RUN python -m pip install --upgrade pip
 
 
 ENV ENV_TYPE staging
